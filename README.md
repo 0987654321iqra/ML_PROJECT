@@ -6,7 +6,7 @@ This project classifies fruits as Fresh or Rotten using EfficientNet-B0. It incl
 app2.py - Streamlit web application
 2_1_26.h5 - Trained EfficientNet-B0 model
 history_combined.pkl - Saved training history (accuracy and loss)
-Final_ml_project.ipynb - Notebook used for training
+22F-BSAI-70_Final_ml_project.ipynb - Notebook used for training
 
 # Setup and Run
 Make sure Python is installed. It is recommended to use a virtual environment.
