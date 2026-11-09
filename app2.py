@@ -75,10 +75,14 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # LOAD MODEL
 @st.cache_resource
 def load_trained_model():
-    return load_model(r"C:\Users\SMART COM\Desktop\iqra\2_1_26.h5")
+    return load_model(os.path.join(BASE_DIR, "2_1_26.h5"))
 
 model = load_trained_model()
 
@@ -86,7 +90,7 @@ model = load_trained_model()
 # =========================================================
 @st.cache_data
 def load_history():
-    with open(r"C:\Users\SMART COM\Desktop\iqra\history_combined.pkl", "rb") as f:
+    with open(os.path.join(BASE_DIR, "history_combined.pkl"), "rb") as f:
         return pickle.load(f)
 
 history = load_history()
@@ -250,17 +254,21 @@ if st.checkbox("Show Accuracy & Loss"):
 
     st.pyplot(fig)
 
-    st.subheader("Confusion Matrix & Classification Report")
+    cm_path = os.path.join(BASE_DIR, "cm.png")
+    cr_path = os.path.join(BASE_DIR, "cr.png")
 
-    col1, col2 = st.columns(2)
+    if os.path.exists(cm_path) and os.path.exists(cr_path):
+        st.subheader("Confusion Matrix & Classification Report")
 
-    with col1:
-        cm_img = Image.open("cm.png")
-        st.image(cm_img, caption="Confusion Matrix", use_container_width=True)
+        col1, col2 = st.columns(2)
 
-    with col2:
-        cr_img = Image.open("cr.png")
-        st.image(cr_img, caption="Classification Report", use_container_width=True)
+        with col1:
+            cm_img = Image.open(cm_path)
+            st.image(cm_img, caption="Confusion Matrix", use_container_width=True)
+
+        with col2:
+            cr_img = Image.open(cr_path)
+            st.image(cr_img, caption="Classification Report", use_container_width=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
 
